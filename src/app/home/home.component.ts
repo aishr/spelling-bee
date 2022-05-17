@@ -6,18 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  inputValue:string = "";
-
-  foo(){
-    console.log(this.inputValue);
-  }
+  inputValue: string = "";
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log("init");
   }
 
-  addToValue(value:string){
+  foo() {
+    console.log(this.inputValue);
+  }
+
+  addToValue = (value:string) => {
     this.inputValue += value;
   }
 }

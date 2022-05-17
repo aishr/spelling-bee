@@ -13,12 +13,9 @@ export class HexagonComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
-    console.log(this.onPress);
   }
 
   shitPants(){
-    console.log("poopoo")
     this.onPress(this.letter);
   }
 
