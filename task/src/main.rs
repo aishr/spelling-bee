@@ -33,7 +33,7 @@ fn generate_letters() -> (char, HashSet<char>) {
 fn get_words(req:char, sel_letters: &HashSet<char>)-> std::io::Result<Vec<String>> {
     //let file = include_bytes!("./words.txt");
     let mut match_words = Vec::new();
-    let file = File::open("./words.txt")?;
+    let file = File::open("./task/words.txt")?;
     let reader = BufReader::new(file);
 
     for line in reader.lines() {
@@ -65,7 +65,7 @@ struct FileFormat {
     words:Vec<String>
 }
 fn store_words(req:char, sel:HashSet<char>, match_words:Vec<String>)-> std::io::Result<()>{
-    let file = File::create("./match_words.json")?;
+    let file = File::create("./task/match_words.json")?;
     let result = FileFormat{
         req:req.to_string(),
         sel:Vec::from_iter(sel.iter().map(ToString::to_string)),
