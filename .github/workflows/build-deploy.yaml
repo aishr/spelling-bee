@@ -1,0 +1,33 @@
+name: build-deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Stable with wasm
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+
+      - name: Release build
+        uses: actions-rs/cargo@v1
+        with:
+          command: run
+
+      - name: InstallBuild
+          run: |
+            npm install
+            npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: dist/spelling-bee

@@ -1,3 +1,16 @@
-<input [(ngModel)]="inputValue" type="text"/>
-<button (click)="foo()">Submit</button>
-<app-hive class="w-full"  [onPress]="addToValue" [letters]="['A', 'H', 'J', 'M', 'M', 'E', 'R']"></app-hive>
+<div class="flex flex-col items-center">
+  <div class="flex w-[60%] mb-[3vh]">
+    <input class="w-full text-[8vw] text-center uppercase" [(ngModel)]="inputValue" type="text" placeholder="Type or click"/>
+  </div>
+  <app-hive class="w-full" [onPress]="addToValue" [letters]="[wordData.req].concat(wordData.sel)"></app-hive>
+  <div class="flex w-[60%] mb-[3vh] place-content-between">
+    <button class="rounded-full border-black border-2 p-3 text-[4vw]" (click)="backspace()">Delete</button>
+    <button class="rounded-full border-black border-2 p-3 text-[4vw]" (click)="shuffle()">Shuffle</button>
+    <button class="rounded-full border-black border-2 p-3 text-[4vw]" (click)="validateWord()">Submit</button>
+  </div>
+  <div>
+    <ul>
+      <li *ngFor="let word of submittedWords">{{word}}</li>
+    </ul>
+  </div>
+</div>
