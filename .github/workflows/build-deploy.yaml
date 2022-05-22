@@ -16,18 +16,14 @@ jobs:
           profile: minimal
           toolchain: stable
 
-      - name: cd task
-        run: cd task
-
       - name: Release build
         uses: actions-rs/cargo@v1
         with:
           command: run
-
-      - name: cd ui
-        run: cd ../ui
+          args: --manifest-path task/Cargo.toml
 
       - name: InstallBuild
+        working-directory: ./ui
         run: |
           npm install
           npm run build
