@@ -1,8 +1,5 @@
 name: build-deploy
 on:
-  push:
-    branches:
-      - master
   schedule:
     - cron: '0 5 * * *'
 
@@ -13,28 +10,16 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: InstallRust
-        if: github.event.schedule == '0 5 * * *'
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
 
       - name: Release build
-        if: github.event.schedule == '0 5 * * *'
         uses: actions-rs/cargo@v1
         with:
           command: run
           args: --manifest-path task/Cargo.toml
-
-      - name: Publish json
-        if: github.event.schedule == '0 5 * * *'
-        run: cp ./task/match_words.json ./ui/src/assets/today.json
-
-      - name: Curl json
-        if: github.event.schedule != '0 5 * * *'
-        run: |
-          curl -O https://aishr.github.io/spelling-bee/assets/today.json
-          mv ./today.json ./task/match_wods.json
 
       - name: InstallBuild
         working-directory: ./ui
