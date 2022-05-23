@@ -6,6 +6,11 @@ interface MatchWords {
   words: string[]
 }
 
+enum InputState {
+  Normal,
+  Correct,
+  Error
+}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,6 +20,8 @@ export class HomeComponent implements OnInit {
   inputValue: string = "";
   wordData:MatchWords = wordInfo;
   submittedWords:string[] = [];
+  inputState:InputState = InputState.Normal;
+  InputState = InputState;
 
   constructor() { }
 
@@ -22,9 +29,18 @@ export class HomeComponent implements OnInit {
     console.log("init");
   }
 
+  setInputState(newState:InputState){
+    this.inputState = newState;
+    setTimeout(() => this.inputState = InputState.Normal, 1000);
+  }
+
   validateWord() {
     if (!this.submittedWords.includes(this.inputValue) && this.wordData.words.includes(this.inputValue)) {
       this.submittedWords.push(this.inputValue);
+      this.setInputState(InputState.Correct);
+    }
+    else {
+      this.setInputState(InputState.Error);
     }
     this.inputValue = "";
   }

@@ -15,7 +15,7 @@ export class HexagonComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  shitPants(){
+  selectLetter(){
     this.onPress(this.letter);
   }
 

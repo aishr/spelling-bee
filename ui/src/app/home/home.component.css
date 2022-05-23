@@ -1,0 +1,14 @@
+.inputError {
+    border-bottom: 2px red solid;
+    transition: all 0.4s ease;
+}
+
+.inputNormal {
+    border-bottom: 2px transparent solid;
+    transition: all 0.4s ease;
+}
+
+.inputCorrect {
+    border-bottom: 2px green solid;
+    transition: all 0.4s ease;
+}
