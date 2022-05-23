@@ -1,5 +1,5 @@
 .inputError {
-    border-bottom: 2px red solid;
+    border-bottom: 2px var(--red) solid;
     transition: all 0.4s ease;
 }
 
@@ -9,6 +9,11 @@
 }
 
 .inputCorrect {
-    border-bottom: 2px green solid;
+    border-bottom: 2px var(--green) solid;
+    transition: all 0.4s ease;
+}
+
+.inputRepeat {
+    border-bottom: 2px var(--yellow) solid;
     transition: all 0.4s ease;
 }

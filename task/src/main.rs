@@ -8,7 +8,7 @@ fn main()-> Result<(), std::io::Error> {
         let (req,sel) = generate_letters();
         dbg!(req, &sel);
         let words = get_words(req, &sel)?;
-        if words.len() < 100{continue;}
+        if words.len() < 30{continue;}
         dbg!(&words);
         store_words(req, sel, words)?;
         break;

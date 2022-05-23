@@ -9,8 +9,15 @@ interface MatchWords {
 enum InputState {
   Normal,
   Correct,
-  Error
+  Error,
+  Repeat
 }
+
+interface LocalStorageState {
+  submittedWords: string[],
+  letters: string[]
+}
+const localStorageKey = "spelling-bee";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,7 +33,14 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("init");
+
+    const existingStorage = localStorage.getItem(localStorageKey);
+    if (!existingStorage){return;}
+    const existingState:LocalStorageState = JSON.parse(existingStorage);
+    const letters = [this.wordData.req,...this.wordData.sel];
+    if (letters.length == existingState.letters.length && letters.every((l) => existingState.letters.includes(l))){
+      this.submittedWords = existingState.submittedWords;
+    }
   }
 
   setInputState(newState:InputState){
@@ -35,9 +49,17 @@ export class HomeComponent implements OnInit {
   }
 
   validateWord() {
-    if (!this.submittedWords.includes(this.inputValue) && this.wordData.words.includes(this.inputValue)) {
+    if (this.submittedWords.includes(this.inputValue)) {
+      this.setInputState(InputState.Repeat);
+    }
+    else if (this.wordData.words.includes(this.inputValue)) {
       this.submittedWords.push(this.inputValue);
       this.setInputState(InputState.Correct);
+      const newState:LocalStorageState = {
+        letters:[this.wordData.req,...this.wordData.sel],
+        submittedWords: this.submittedWords 
+      };
+      localStorage.setItem(localStorageKey, JSON.stringify(newState));
     }
     else {
       this.setInputState(InputState.Error);

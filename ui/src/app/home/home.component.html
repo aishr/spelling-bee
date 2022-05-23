@@ -1,13 +1,16 @@
 <div class="flex flex-col items-center">
   <div class="flex w-[60%] mb-[3vh]">
-    <input [ngClass]="{
+    <div *ngIf="wordData.words.length == submittedWords.length; else elseBlock"
+      class="w-full text-[8vw] text-center uppercase text-green-600">You Win!</div>
+    <ng-template #elseBlock>
+      <input [ngClass]="{
                         'inputError': this.inputState == InputState.Error, 
                         'inputNormal': this.inputState == InputState.Normal,
-                        'inputCorrect': this.inputState == InputState.Correct}" 
-           class="w-full text-[8vw] text-center uppercase" 
-           [(ngModel)]="inputValue" 
-           type="text" 
-           placeholder="Type or click"/>
+                        'inputCorrect': this.inputState == InputState.Correct,
+                        'inputRepeat': this.inputState == InputState.Repeat
+                      }" class="w-full text-[8vw] text-center uppercase" [(ngModel)]="inputValue" type="text"
+        placeholder="Type or click" />
+    </ng-template>
   </div>
   <app-hive class="w-full" [onPress]="addToValue" [letters]="[wordData.req].concat(wordData.sel)"></app-hive>
   <div class="flex w-[60%] mb-[3vh] place-content-between">
@@ -15,7 +18,7 @@
     <button class="rounded-full border-black border-2 p-3 text-[4vw]" (click)="shuffle()">Shuffle</button>
     <button class="rounded-full border-black border-2 p-3 text-[4vw]" (click)="validateWord()">Submit</button>
   </div>
-  <hr class="w-[75%] h-[1px] bg-black border-none mb-[2vh]"/>
+  <hr class="w-[75%] h-[1px] bg-black border-none mb-[2vh]" />
   <div>
     <ul>
       <li class="text-[3vw] uppercase" *ngFor="let word of submittedWords">{{word}}</li>
