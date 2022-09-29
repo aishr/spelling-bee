@@ -39,7 +39,7 @@ fn get_words(req:char, sel_letters: &HashSet<char>)-> std::io::Result<Vec<String
     for line in reader.lines() {
         let tmp_line = line?;
 
-        if tmp_line.len() <= 3 {continue;}
+        if tmp_line.len() <= 2 {continue;}
         let mut req_char = false;
         let mut valid_word = true;
         for c in tmp_line.chars() {
